@@ -1,4 +1,3 @@
-//https://leetcode.com/problems/smallest-index-with-digit-sum-equal-to-index/
 impl Solution {
     pub fn smallest_index(nums: Vec<i32>) -> i32 {
         let condition = |mut index: i32, mut value: i32| {

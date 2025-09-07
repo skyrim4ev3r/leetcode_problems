@@ -1,4 +1,3 @@
-//https://leetcode.com/problems/reverse-degree-of-a-string/
 impl Solution {
     pub fn reverse_degree(s: String) -> i32 {
         let mut sum = 0;
