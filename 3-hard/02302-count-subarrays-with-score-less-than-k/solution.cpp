@@ -6,12 +6,12 @@ public:
             while (left != nums.size() && nums[left] >= k) {
                 ++left;
             }
-            if(left == nums.size()) {
+            if (left == nums.size()) {
                 break;
             }
             right = left;
             sum = nums[left];
-            while(right >= left) {
+            while (right >= left) {
                 while (right <  nums.size() - 1 && (((sum + nums[right + 1]) * (right - left + 2)) < k)) {
                     ++right;
                     sum += nums[right];
