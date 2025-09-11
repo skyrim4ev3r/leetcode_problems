@@ -1,3 +1,8 @@
+/*
+    its same as another ==> hard problem ==> 00051
+    look comments on that solutions, because this is just a lighter version of that problem
+*/
+
 impl Solution {
     fn is_safe(x :usize, y: usize, max: usize, board: &mut Vec<Vec<bool>>) -> bool {
         for ofs in 0..max {
@@ -13,6 +18,7 @@ impl Solution {
         }
         return true;
     }
+    
     fn solve_helper(current_row: usize, max: usize,  board: &mut Vec<Vec<bool>>, count: &mut i32) {
         for x in 0..max {
             if Self::is_safe(x, current_row, max, board) {
@@ -26,13 +32,14 @@ impl Solution {
             }
         }      
     }
+    
     pub fn total_n_queens(n: i32) -> i32 {
         // Uncomment the following lines to use the lookup table for n = 1 to 9 to gain execution speed
         /* if 1 <= n && n <= 9 {
             return [1, 0, 0, 2, 10, 4, 40, 92, 352][n as usize - 1];
         } */
         
-        // Backtracking solutio    
+        // Backtracking solution    
         let mut board = vec![vec![false;n as usize];n as usize];
         let mut count: i32 = 0;
         Self::solve_helper(0usize, n as usize, &mut board, &mut count);

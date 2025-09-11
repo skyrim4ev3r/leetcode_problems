@@ -1,3 +1,8 @@
+
+#    its same as another ==> hard problem ==> 00051
+#    look comments on that solutions, because this is just a lighter version of that problem
+
+
 class Solution:
     def is_safe(self, x: int, y: int, max: int, board):
         for ofs in range(0,max):

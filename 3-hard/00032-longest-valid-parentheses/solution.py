@@ -1,30 +1,61 @@
 class Solution:
-    def update_valid_positions(self, s, valid_positions):
+
+    #   for c++ and rust:
+    #   replace valid parentheses with '+' is original sting
+    #   example:
+    #           "}}{}}([]){()" ==> will turn into ==> "}}++}++++{++" 
+    
+    #   python
+    #           since python doesnt allow for changing string so its more like:
+    #               ["}", "(", ")"] ==> ["}", "+", "+"]
+    #
+    #           idea is same, but instead of string, we change the "list"
+    #       
+    def reformat_list(self, s):
         stack = []
         for i in range(len(s)):
             if len(stack) > 0:
                 top_element = stack[-1]
-                if (s[i] == '}' and top_element[1] == '{') \
-                        or (s[i] == ']' and top_element[1] == '[') \
-                        or (s[i] == ')' and top_element[1] == '('):
-                    valid_positions[top_element[0]] = True
-                    valid_positions[i] = True
+                #
+                #   if the stack top element match our current char 
+                #   then we replace both of them with '+'
+                #
+                if (s[i] == '}' and s[top_element[1]] == '{') \
+                        or (s[i] == ']' and s[top_element] == '[') \
+                        or (s[i] == ')' and s[top_element] == '('):            
+                    s[top_element] = '+'
+                    s[i] = '+'
                     stack.pop()
                     continue
-            stack.append([i, s[i]])
+                # We use "continue" because both of our if conditions require pushing to the stack in their "else" statements.
+            # saving index of current char
+            stack.append(i)
 
-    def max_continuous_substr_of_true(self, valid_positions):
-        max_continuous_true, curr = 0, 0
-        for pos in valid_positions:
-            if pos:
+
+    # for c++ and rust:
+    #    after string get reformatted to:
+    #    
+    #        "}}++}++++{++"
+    #       
+    #    now we need just return longest continuous count of '+' char
+    
+    # for python: its just "list" instead of "string", and we need count continous "+" in this list
+    def max_continuous_of_plus(self, s):
+        max_continuous_plus, curr = 0, 0
+        for c in s:
+            if c == '+':
                 curr += 1
             else:
                 curr = 0
-            if curr > max_continuous_true:
-                max_continuous_true = curr
-        return max_continuous_true
-
+            if curr > max_continuous_plus:
+                max_continuous_plus = curr
+        return max_continuous_plus
+    
     def longestValidParentheses(self, s: str) -> int:
-        valid_positions = [False for _ in s];
-        self.update_valid_positions(s, valid_positions)
-        return self.max_continuous_substr_of_true(valid_positions)
+        list_s = list(s) # converting s for mutability
+
+        # reformatting list to replace all of its valid parentheses chars with '+'   
+        self.reformat_list(list_s) 
+
+        # returning longest continues of those '+' chars   
+        return self.max_continuous_of_plus(list_s)

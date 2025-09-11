@@ -1,8 +1,14 @@
+/*
+    its same as another ==> hard problem ==> 00051
+    look comments on that solutions, because this is just a lighter version of that problem
+*/
+
 class Solution {
     vector<vector<bool>> board{};
     int count{0};
     int max;
-     bool is_safe(int x, int y) {
+    
+    bool is_safe(int x, int y) {
         for (int ofs{0}; ofs < max; ++ofs) {
             if (x >= ofs && y >= ofs && board[x - ofs][y - ofs]) {
                 return false;
@@ -16,6 +22,7 @@ class Solution {
         }
         return true;
     }
+    
     void solve_helper(int currentrow) {
         for (int x{0}; x < max; ++x) {
             if (is_safe(x, currentrow)) {
@@ -29,6 +36,7 @@ class Solution {
             }
         }
     }
+    
 public:
     int totalNQueens(int n) {
         // Uncomment the following lines to use the lookup table for n = 1 to 9 to gain execution speed
