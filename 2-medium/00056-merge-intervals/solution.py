@@ -3,16 +3,13 @@ class Solution:
 
         intervals.sort(key=lambda x: x[0])
 
-        index = 0
         res = []
 
-        while index != len(intervals):
-            tmp_list = intervals[index][:]
-            right = index + 1
-            while right != len(intervals) and intervals[right][0] <= tmp_list[1]:
-                tmp_list[1] = max(tmp_list[1], intervals[right][1])
-                right += 1
-            res.append(tmp_list)
-            index = right
+        for interval in intervals:
+            if len(res) > 0 and res[-1][1] >= interval[0]:
+                if res[-1][1] < interval[1]:
+                    res[-1][1] = interval[1]
+            else:
+                res.append(interval)
 
-        return res        
+        return res

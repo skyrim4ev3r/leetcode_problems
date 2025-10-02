@@ -1,44 +1,44 @@
 impl Solution {
     pub fn add_two_numbers(mut l1: Option<Box<ListNode>>, mut l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let (mut n1, mut n2, mut n3) : (Vec<i8>, Vec<i8>, Vec<i8>) = (Vec::new(), Vec::new(), Vec::new());
-        let mut res: Option<Box<ListNode>> = None;
-        while let Some(ptr) = l1 {
-            n1.push(ptr.val as i8);
-            l1 = ptr.next;
-        }
-        while let Some(ptr) = l2 {
-            n2.push(ptr.val as i8);
-            l2 = ptr.next;
-        }
-        let (mut i, mut j, mut ofs) = (0usize, 0usize, 0i8);
+        let mut res_dummy: Option<Box<ListNode>> = Some(Box::new(ListNode::new(0)));
+        let mut res_prev = &mut res_dummy;
+        let mut offset = 0;
         loop {
-            let mut tmp = n1[i] + n2[j] + ofs;
-            ofs = 0;
-            if(tmp > 9) {
-                tmp -= 10;
-                ofs = 1;
+            let mut num1 = 0_i32;
+            if l1.is_some() {
+                let mut l1_node = l1.unwrap();
+                num1 = l1_node.val;
+                l1 = l1_node.next.take();
             }
-            n3.push(tmp);
-            if i==n1.len() -1 && j== n2.len() -1 {
-                if(ofs > 0){
-                    n3.push(ofs);
+
+            let mut num2 = 0_i32;
+            if l2.is_some() {
+                let mut l2_node = l2.unwrap();
+                num2 = l2_node.val;
+                l2 = l2_node.next.take();
+            }
+
+            let mut res_num = num1 + num2 + offset;
+            offset = 0;
+            if res_num >= 10 {
+                offset = 1;
+                res_num -= 10;
+            }
+
+            let mut new_node: Option<Box<ListNode>> = Some(Box::new(ListNode::new(res_num)));
+            res_prev.as_mut().unwrap().next = new_node;
+            res_prev = &mut res_prev.as_mut().unwrap().next;
+
+            if l1.is_none() && l2.is_none() {
+                if offset > 0 {
+                    let mut new_node: Option<Box<ListNode>> = Some(Box::new(ListNode::new(offset)));
+                    res_prev.as_mut().unwrap().next = new_node;
                 }
+
                 break;
             }
-            if i < n1.len() -1 {
-                i += 1;
-            } else {
-                n1[i] = 0;
-            }
-            if j < n2.len() -1 {
-                j += 1;
-            } else {
-                n2[j] = 0;
-            }
         }
-        for num in n3.iter().rev() {
-            res = Some(Box::new(ListNode { next : res, val: *num as i32}));
-        }
-        res
+        
+        res_dummy.unwrap().next.take()
     }
 }

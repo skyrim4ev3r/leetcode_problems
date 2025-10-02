@@ -3,20 +3,14 @@ impl Solution {
 
         let mut res: Vec<Vec<i32>> = Vec::new();
 
-        intervals.sort_by(|a, b| a[0].cmp(&b[0]));
+        intervals.sort_unstable_by(|a, b| a[0].cmp(&b[0]));
 
-        let mut index = 0;
-        while index != intervals.len() {
-
-            let mut right = index + 1;
-            let mut tmp_vec = intervals[index].clone();
-            while right != intervals.len() && intervals[right][0] <=  tmp_vec[1] {
-                tmp_vec[1] = tmp_vec[1].max(intervals[right][1]);
-                right += 1;
+        for interval in intervals.into_iter() {
+            if let Some(last) = res.last_mut() && last[1] >= interval[0] {
+                last[1] = last[1].max(interval[1]);
+            } else {
+                res.push(interval);
             }
-            res.push(tmp_vec);
-
-            index = right;
         }
 
         res
