@@ -13,15 +13,15 @@ class Solution:
 
         heap = []
 
-        heappush(heap, [grid[0][0], 0, 0, 0])
+        heappush(heap, [grid[0][0], 0, 0])
         is_visited[0][0] = True
 
         while heap:
             cell = heappop(heap)
 
             for direction in directions:
-                new_i = cell[2] + direction[0]
-                new_j = cell[3] + direction[1]
+                new_i = cell[1] + direction[0]
+                new_j = cell[2] + direction[1]
 
                 if new_i < 0 or new_i >= n or new_j < 0 or new_j >= n:
                     continue
@@ -32,11 +32,10 @@ class Solution:
                 is_visited[new_i][new_j] = True
 
                 new_cost = grid[new_i][new_j] if grid[new_i][new_j] > cell[0] else cell[0]
-                new_steps = cell[1] + 1
 
                 if new_i == n - 1 and new_j == n - 1:
-                    return max(new_cost, new_steps)
+                    return new_cost
 
-                heappush(heap,[new_cost, new_steps, new_i, new_j])
+                heappush(heap,[new_cost, new_i, new_j])
 
         return -1

@@ -4,7 +4,6 @@ use std::cmp::Ordering;
 #[derive(Debug, PartialEq, Eq)]
 struct Cell {
     cost: i32,
-    steps: i32,
     i: usize,
     j: usize,
 }
@@ -37,7 +36,7 @@ impl Solution {
 
         let mut heap: BinaryHeap<Cell> = BinaryHeap::new();
 
-        heap.push(Cell{cost: grid[0][0], steps:0, i: 0, j: 0});
+        heap.push(Cell{cost: grid[0][0], i: 0, j: 0});
         is_visited[0][0] = true;
 
         while let Some(cell) = heap.pop() {
@@ -63,13 +62,12 @@ impl Solution {
                 is_visited[new_i][new_j] = true;
 
                 let new_cost = grid[new_i][new_j].max(cell.cost);
-                let new_steps = cell.steps + 1;
 
                 if new_i == n - 1 && new_j == n - 1 {
-                    return new_cost.max(new_steps);
+                    return new_cost;
                 }
 
-                heap.push(Cell{cost: new_cost, steps: new_steps, i: new_i, j: new_j});
+                heap.push(Cell{cost: new_cost, i: new_i, j: new_j});
 
             }
         }

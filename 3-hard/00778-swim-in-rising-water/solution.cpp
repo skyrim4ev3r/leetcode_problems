@@ -1,7 +1,6 @@
 class Solution {
     struct Cell {
         int cost;
-        int steps;
         int i;
         int j;
         bool operator<(const Cell& other) const {
@@ -22,7 +21,7 @@ public:
 
         priority_queue<Cell> heap{};
 
-        heap.push(Cell{grid[0][0], 0, 0, 0});
+        heap.push(Cell{grid[0][0], 0, 0});
         is_visited[0][0] = true;
 
         while (!heap.empty()) {
@@ -44,13 +43,12 @@ public:
                 is_visited[new_i][new_j] = true;
 
                 int new_cost = std::max(grid[new_i][new_j], cell.cost);
-                int new_steps = cell.steps + 1;
 
                 if (new_i == n - 1 && new_j == n - 1) {
-                    return std::max(new_cost, new_steps);
+                    return new_cost;
                 }
 
-                heap.push(Cell{new_cost, new_steps, new_i, new_j});
+                heap.push(Cell{new_cost, new_i, new_j});
 
             }
         }
