@@ -2,21 +2,18 @@ class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         n = len(nums)
 
-        # at worst case if vector of len n contains 1..n then we need n+1 space
-        # that extra space is pos[0] and it will get ignore to easily map valid nums to thier index
-        pos = [False for _ in range(n+1)]
+        for i in range(n):
+            if nums[i] <= 0:
+                nums[i] = sys.maxsize
 
-        for num in nums:
+        for i in range(n):
+            num = abs(nums[i]) - 1
+            if num < n:
+                if nums[num] > 0:
+                    nums[num] *= -1
 
-            # we can ignore numers greather than n, because if ther be any then at least some int between 1..n is missed
-            if num > 0 and num <= n:
-                pos[num] = True
+        for i in range(n):
+            if nums[i] > 0:
+                return i + 1
 
-        # start from 1, ignoring pos[0]
-        for i in range(1,n+1):
-
-            #if any num in nums be "greater than n" or "less than one" then at least there is at least one "i where pos[i] = false" 
-            if pos[i] == False:
-                return i
-
-        return n + 1 #this happens at worst case when vector of len n have 1..n values
+        return n + 1

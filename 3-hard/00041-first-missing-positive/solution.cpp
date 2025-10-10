@@ -2,30 +2,28 @@ class Solution {
 public:
     int firstMissingPositive(vector<int>& nums) {
         int n = nums.size();
-        
-        // at worst case if vector of len n contains 1..n then we need n+1 space
-        // that extra space is pos[0] and it will get ignore to easily map valid nums to thier index
-        vector<bool> pos(n + 1, false);
-        
-        for (auto num: nums) {
-        
-            // we can ignore numbers greater than n, because if there be any then at least some int between 1..n is missed
-            if (num > 0 && num <= n) {
-                pos[num] = true;
-            }
-            
-        }
-        
-        // start from 1, ignoring pos[0]
-        for (int i{1}; i <= n; ++i) {
-        
-            // if any num in nums be "greater than n" or "less than one" then at least there is at least one "i where pos[i] = false" 
-            if (pos[i] == false) {
-                return i;
+
+        for (int i{0}; i < n; ++i) {
+            if (nums[i] <= 0) {
+                nums[i] = INT_MAX;
             }
         }
-        
-        //this happens at worst case when vector of len n have 1..n values
+
+        for (int i{0}; i < n; ++i) {
+            int num = abs(nums[i]) - 1;
+            if (num < n) {
+                if (nums[num] > 0) {
+                    nums[num] *= -1;
+                }
+            }
+        }
+
+        for (int i{0}; i < n; ++i) {
+            if (nums[i] > 0) {
+                return i + 1;
+            }
+        }
+
         return n + 1;
     }
 };

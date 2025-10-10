@@ -1,4 +1,3 @@
-//use num::integer::{gcd, lcm};
 impl Solution {
     fn gcd(a: i32, b: i32) -> i32 {
         if b == 0 {
