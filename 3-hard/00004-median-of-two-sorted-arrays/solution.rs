@@ -1,3 +1,10 @@
+/*
+	### Time Complexity Notice
+
+        This solution has a time complexity of O(m + n), whereas the problem requires O(log (m + n)).
+*/
+
+
 impl Solution {
     pub fn find_median_sorted_arrays(nums1: Vec<i32>, nums2: Vec<i32>) -> f64 {
         let total_count = nums1.len() + nums2.len();

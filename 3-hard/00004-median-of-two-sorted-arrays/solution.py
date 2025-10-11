@@ -1,3 +1,9 @@
+#
+#       ### Time Complexity Notice
+#
+#       This solution has a time complexity of O(m + n), whereas the problem requires O(log (m + n)).
+#
+
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         total_count = len(nums1) + len(nums2)

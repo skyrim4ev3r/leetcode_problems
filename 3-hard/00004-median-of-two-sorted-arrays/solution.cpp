@@ -1,3 +1,10 @@
+/*
+        ### Time Complexity Notice
+
+        This solution has a time complexity of O(m + n), whereas the problem requires O(log (m + n)).
+*/
+
+
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
