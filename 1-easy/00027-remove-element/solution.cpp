@@ -1,11 +1,17 @@
 class Solution {
 public:
     int removeElement(vector<int>& nums, int val) {
-        for(int i{static_cast<int>(nums.size()) -1}; i >= 0; --i) {
-            if(nums[i] ==  val) {
-                nums.erase(nums.begin() + i);
+
+        int len = nums.size();
+        int k = 0;
+
+        for (int i{0}; i < len; ++i) {
+            if (nums[i] != val) {
+                nums[k] = nums[i];
+                k += 1;
             }
         }
-        return nums.size();
+
+        return k;
     }
 };
