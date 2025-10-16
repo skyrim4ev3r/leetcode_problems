@@ -11,20 +11,23 @@
 
 impl Solution {
     pub fn min_operations(s: String) -> i32 {
-        const NEW_SYSTEM_MAX_BYTE: u8 = b'z' + 1;
-        let bytes = s.into_bytes();
-        let mut min_byte = NEW_SYSTEM_MAX_BYTE;
-        for byte in bytes {
 
-            if byte != b'a' && byte < min_byte {//ignoring 'a', default min_char is NEW_SYSTEM_MAX_CHAR 
-                                              //              which is equal to 'a' ascii in new system 
-                
+        // Its equal to binary code 'a' in this new system
+        const NEW_SYSTEM_MAX_BYTE: u8 = b'z' + 1;
+        let mut min_byte = NEW_SYSTEM_MAX_BYTE;
+
+        for byte in s.into_bytes().into_iter() {
+
+            //ignoring 'a', default min_char is 'z' + 1 
+            //              which is equal to 'a' ascii in this new system 
+            if byte != b'a' && byte < min_byte {
                 min_byte = byte;
                 if min_byte == b'b' {
                     break;
                 }
             }
         }
+
         (NEW_SYSTEM_MAX_BYTE - min_byte) as i32
     }
 }

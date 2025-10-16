@@ -10,20 +10,25 @@
 */
 
 class Solution {
-        const char NEW_SYSTEM_MAX_CHAR = 'z' + 1;
 public:
     int minOperations(string s) {
-        char min_char = NEW_SYSTEM_MAX_CHAR;
-        for (auto ch: s) {
 
-            if (ch != 'a' && ch < min_char) {//ignoring 'a', default min_char is NEW_SYSTEM_MAX_CHAR 
-                                            //              which is equal to 'a' ascii in new system 
+        // Its equal to binary code 'a' in this new system
+        const char NEW_SYSTEM_MAX_CHAR = 'z' + 1;
+        char min_char = NEW_SYSTEM_MAX_CHAR;
+
+        for (char &ch: s) {
+
+            //ignoring 'a', default min_char is 'z' + 1 
+            //              which is equal to 'a' ascii in this new system 
+            if (ch != 'a' && ch < min_char) {
                 min_char = ch;
                 if (min_char == 'b') {
                     break;
                 }
             }
         }
+
         return NEW_SYSTEM_MAX_CHAR - min_char;
     }
 };

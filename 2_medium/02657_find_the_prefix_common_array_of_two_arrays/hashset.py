@@ -1,8 +1,10 @@
 class Solution:
     def findThePrefixCommonArray(self, a: List[int], b: List[int]) -> List[int]:
+
         nums_set = set()
         res = []
         common = 0
+
         for i in range(len(a)):
             if a[i] in nums_set:
                 nums_set.remove(a[i])
