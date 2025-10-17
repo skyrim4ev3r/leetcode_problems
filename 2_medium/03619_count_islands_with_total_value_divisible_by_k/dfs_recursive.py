@@ -1,5 +1,5 @@
 class Solution:
-    def backtrack(self, grid, i, j):
+    def dfs_recursive(self, grid, i, j):
 
         if grid[i][j] == 0:
             return 0
@@ -8,24 +8,26 @@ class Solution:
         grid[i][j] = 0
 
         if i > 0:
-            total_sum += self.backtrack(grid, i - 1, j)
-        if i < len(grid) - 1:
-            total_sum += self.backtrack(grid, i + 1, j)
+            total_sum += self.dfs_recursive(grid, i - 1, j)
+        if i < self.rows - 1:
+            total_sum += self.dfs_recursive(grid, i + 1, j)
 
         if j > 0:
-            total_sum += self.backtrack(grid, i, j - 1)
-        if j < len(grid[i]) - 1:
-            total_sum += self.backtrack(grid, i, j + 1)
+            total_sum += self.dfs_recursive(grid, i, j - 1)
+        if j < self.cols - 1:
+            total_sum += self.dfs_recursive(grid, i, j + 1)
 
         return total_sum
 
     def countIslands(self, grid: List[List[int]], k: int) -> int:
         count = 0
+        self.rows = len(grid)
+        self.cols = len(grid[0])
 
-        for i in range(len(grid)):
-            for j in range(len(grid[i])):
+        for i in range(self.rows):
+            for j in range(self.cols):
                 if grid[i][j] != 0:
-                    total_sum = self.backtrack(grid, i, j)
+                    total_sum = self.dfs_recursive(grid, i, j)
                     if total_sum % k == 0:
                         count += 1
 
