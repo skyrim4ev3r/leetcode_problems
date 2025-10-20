@@ -1,12 +1,20 @@
 class Solution:
     def triangleNumber(self, nums: List[int]) -> int:
-        nums.sort()
+
         total_sum = 0
-        for i in range(2, len(nums)):
+        nums_len = len(nums)
+
+        nums.sort()
+
+        for i in range(2, nums_len):
+
             left = 0
             right = i - 1
+
             while left < right:
                 if nums[left] + nums[right] > nums[i]:
+                    # Add all triplets
+                    # nums[left..=right - 1], nums[right], nums[i]
                     total_sum += right - left
                     right -= 1
                 else:
