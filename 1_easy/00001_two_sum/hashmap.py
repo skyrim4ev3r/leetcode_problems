@@ -6,3 +6,4 @@ class Solution:
                 return [d[target-nums[i]], i]
             else:
                 d[nums[i]] = i
+        return []
