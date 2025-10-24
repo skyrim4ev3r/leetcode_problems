@@ -1,7 +1,7 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        const size_t len = nums.size();
+
         const size_t colors_len = 3;
         int colors_count[colors_len]{};
 

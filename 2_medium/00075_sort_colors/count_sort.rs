@@ -1,11 +1,11 @@
 impl Solution {
     pub fn sort_colors(nums: &mut Vec<i32>) {
-        let len = nums.len();
+
         const colors_len: usize = 3;
         let mut colors_count = [0_i32; colors_len];
 
-        for i in 0..len {
-            colors_count[nums[i] as usize] += 1;
+        for &num in nums.iter() {
+            colors_count[num as usize] += 1;
         }
 
         let mut nums_index = 0_usize;
